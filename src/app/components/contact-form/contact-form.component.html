@@ -1,0 +1,64 @@
+<h1 class="text-center">{{ submitted ? 'Gracias por contactarte!' : 'Formulario Contacto' }}</h1>
+<div class="container mt-5">
+    <form class="row" [formGroup]="form" (ngSubmit)="send(form)">
+        <div class="col-md-6">
+            <label class="form-label">Nombre (*):</label>
+            <input class="form-control" formControlName="name" placeholder="Nombre" 
+            [ngClass]="(form.get('name')?.dirty || form.get('name')?.touched) 
+            && form.get('name')?.errors ? 'is-invalid' : ''" [readonly]="isReadOnly">
+            <div class="invalid-feedback">{{ form.get('name')?.hasError('required') ? 'Campo requerido' : ''}}</div>
+            <div class="invalid-feedback">{{ form.get('name')?.hasError('maxlength') ? 'Debe ingresar hasta 25 caracteres' : ''}}</div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Apellido (*):</label>
+            <input class="form-control" formControlName="lastname" placeholder="Apellido" 
+            [ngClass]="(form.get('lastname')?.dirty || form.get('lastname')?.touched) 
+            && form.get('lastname')?.errors ? 'is-invalid' : ''" [readonly]="isReadOnly">
+            <div class="invalid-feedback">{{ form.get('lastname')?.hasError('required') ? 'Campo requerido' : ''}}</div>
+            <div class="invalid-feedback">{{ form.get('lastname')?.hasError('maxlength') ? 'Debe ingresar hasta 40 caracteres' : ''}}</div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <label class="form-label">Edad (*):</label>
+            <input class="form-control" formControlName="age" placeholder="Edad"
+            [ngClass]="(form.get('age')?.dirty || form.get('age')?.touched) 
+            && form.get('age')?.errors ? 'is-invalid' : ''" [readonly]="isReadOnly">
+            <div class="invalid-feedback">{{ form.get('age')?.hasError('required') ? 'Campo requerido' : ''}}</div>
+            <div class="invalid-feedback">{{ form.get('age')?.hasError('min') ? 'Debe ser mayor de 18' : ''}}</div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <label class="form-label">Mail (*):</label>
+            <input class="form-control" formControlName="email" placeholder="Mail" 
+            [ngClass]="(form.get('email')?.dirty || form.get('email')?.touched) 
+            && form.get('email')?.errors ? 'is-invalid' : ''" [readonly]="isReadOnly">
+            <div class="invalid-feedback">{{ form.get('email')?.hasError('required') ? 'Campo requerido' : ''}}</div>
+            <div class="invalid-feedback">{{ form.get('email')?.hasError('email') ? 'Debe ingresar un mail válido' : ''}}</div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <label class="form-label">Dirección:</label>
+            <input class="form-control" formControlName="address" placeholder="Dirección" [readonly]="isReadOnly">
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <label class="form-label">Teléfono (*):</label>
+            <input class="form-control" formControlName="telephone" placeholder="Teléfono" 
+            [ngClass]="(form.get('telephone')?.dirty || form.get('telephone')?.touched) 
+            && form.get('telephone')?.errors ? 'is-invalid' : ''" [readonly]="isReadOnly">
+            <div class="invalid-feedback">{{ form.get('telephone')?.hasError('required') ? 'Campo requerido' : ''}}</div>
+            <div class="invalid-feedback">{{ form.get('telephone')?.hasError('minlength') ? 'Mínimo 8 dígitos' : ''}}</div>
+            <div class="invalid-feedback">{{ form.get('telephone')?.hasError('maxlength') ? 'Máximo 11 dígitos' : ''}}</div>
+        </div>
+
+        <div class="col-md-12 mt-5">
+            <p *ngIf="!submitted">(*) Campo requerido</p>
+        </div>
+
+        <div class="col col-5 mt-3">
+            <button type="submit" class="btn btn-success" *ngIf="!submitted" [disabled]="!form.valid">Enviar</button>
+            <button type="button"  class="btn btn-primary" (click)="backToForm()" *ngIf="submitted">Volver</button>
+        </div>
+    </form>
+</div>
